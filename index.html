@@ -1,0 +1,47 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Desert Drive 3D</title>
+    <style>
+        body { margin: 0; overflow: hidden; background: #87CEEB; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0xedc9af);
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        const light = new THREE.DirectionalLight(0xffffff, 1);
+        light.position.set(5, 10, 7.5).normalize();
+        scene.add(light);
+
+        const geometry = new THREE.BoxGeometry(1, 0.5, 2);
+        const material = new THREE.MeshLambertMaterial({ color: 0xd9534f });
+        const car = new THREE.Mesh(geometry, material);
+        scene.add(car);
+
+        camera.position.set(0, 3, 5);
+        camera.lookAt(car.position);
+
+        function animate() {
+            requestAnimationFrame(animate);
+            car.rotation.y += 0.01;
+            renderer.render(scene, camera);
+        }
+        animate();
+    </script>
+</body>
+</html>
+
+
+
